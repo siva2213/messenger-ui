@@ -8,11 +8,11 @@ class UserChatContainer extends Component {
     this.state = {
       chatData: [
         {
-          receiver: "Varsha",
+          receiver: "Matt",
           text: "Hi",
         },
         {
-          sender: "Siva",
+          sender: "Shaun",
           text: "Hello!",
         },
       ],
