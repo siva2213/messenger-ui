@@ -1,26 +1,61 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  withRouter,
+} from "react-router-dom";
+import RoutesDetails from "./routes/messengerRoutes";
+import UserRoutes from "./routes/userList";
+import Inbox from "./containers/MessengerContainer/MessengerContainer";
+import AppContainer from "./containers/AppContainer/AppContainer";
+import UserChatContainer from "./containers/UserChatContainer/UserChatContainer";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <div className="container-flex">
+        <Router>
+          <div className="inner-container">
+            <Route component={AppContainer} path="/"></Route>
+          </div>
+          <div className="inner-container">
+            <Route component={Inbox} path="/messenger"></Route>
+          </div>
+          <div className="inner-container">
+            {RoutesDetails.map((route) => {
+              return (
+                <div key={route.name}>
+                  <Switch>
+                    <Route {...route}></Route>
+                  </Switch>
+                </div>
+              );
+            })}
+          </div>
+          <div className="inner-container">
+            {UserRoutes.map((route) => {
+              return (
+                <div key={route.name}>
+                  <Switch>
+                    <Route {...route}></Route>
+                  </Switch>
+                </div>
+              );
+            })}
+          </div>
+          <div className="inner-container">
+            <Route
+              component={UserChatContainer}
+              path="/messenger/unread/:name?"
+            ></Route>
+          </div>
+        </Router>
+      </div>
+    );
+  }
 }
 
-export default App;
+export default withRouter(App);
